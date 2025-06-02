@@ -1,7 +1,7 @@
-package com.integration.lawyer.service;
+package com.integration.lawyer.Service;
 
-import com.integration.lawyer.model.Caso;
-import com.integration.lawyer.repository.CasoRepository;
+import com.integration.lawyer.Model.Caso;
+import com.integration.lawyer.Repository.CasoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

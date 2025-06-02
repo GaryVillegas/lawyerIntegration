@@ -1,4 +1,4 @@
-package com.integration.lawyer.model;
+package com.integration.lawyer.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

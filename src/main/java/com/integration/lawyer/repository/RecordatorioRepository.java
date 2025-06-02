@@ -1,4 +1,4 @@
-package com.integration.lawyer.repository;
+package com.integration.lawyer.Repository;
 
 public interface RecordatorioRepository {
 }
