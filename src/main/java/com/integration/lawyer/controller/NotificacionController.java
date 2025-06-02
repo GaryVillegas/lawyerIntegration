@@ -1,4 +1,4 @@
-package com.integration.lawyer.controller;
+package com.integration.lawyer.Controller;
 
 public class NotificacionController {
 }

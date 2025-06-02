@@ -1,10 +1,8 @@
-package com.integration.lawyer.controller;
+package com.integration.lawyer.Controller;
 
-import com.integration.lawyer.model.Cliente;
-import com.integration.lawyer.service.ClienteService;
-import org.apache.coyote.Response;
+import com.integration.lawyer.Model.Cliente;
+import com.integration.lawyer.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

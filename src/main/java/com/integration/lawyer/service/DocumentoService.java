@@ -1,4 +1,4 @@
-package com.integration.lawyer.service;
+package com.integration.lawyer.Service;
 
 public class DocumentoService {
 }

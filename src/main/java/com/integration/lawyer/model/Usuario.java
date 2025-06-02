@@ -1,4 +1,4 @@
-package com.integration.lawyer.model;
+package com.integration.lawyer.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,11 +28,11 @@ public class Usuario {
     @Column(nullable = false, length = 50, unique = true)
     private String rol;
 
-    public String getCorreo() {
+    public String getCorreo(String correo) {
         return this.correo = correo;
     }
 
-    public String getContrasena() {
+    public String getContrasena(String contrasena) {
         return this.contrasena = contrasena;
     }
 
