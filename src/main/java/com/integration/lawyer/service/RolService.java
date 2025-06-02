@@ -25,6 +25,16 @@ public class RolService {
     public void delete(Integer id){
         rolRepository.deleteById(id);
     }
+    
+    public Rol actualizar(Integer id, Rol nuevoRol) {
+        Rol rolExistente = rolRepository.findById(id).orElse(null);
+        if (rolExistente == null) {
+            return null;
+        }
+        
+        rolExistente.setNombreRol(nuevoRol.getNombreRol());
+        return rolRepository.save(rolExistente);
+    }
 
 
 }

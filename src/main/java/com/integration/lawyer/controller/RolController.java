@@ -28,15 +28,20 @@ public class RolController {
         rolService.delete(id);
         return ResponseEntity.status(200).body("Rol eliminado");
     }
-//    @PutMapping("/rol/{id}")
-//    public ResponseEntity<?> actualizarRol(@PathVariable Integer id, @RequestBody Rol nuevoRol) {
-//        Rol actualizado = rolService.actualizar(id, nuevoRol);
-//        if (actualizado != null) {
-//            return ResponseEntity.status(200).body("Rol actualizado");
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    
+    @PutMapping("/rol/{id}")
+    public ResponseEntity<String> actualizarRol(
+    @PathVariable Integer id, 
+    @RequestBody Rol nuevoRol) {
+        if (nuevoRol.getNombreRol() == null || nuevoRol.getNombreRol().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("El nombre del rol no puede estar vacío");
+        }
+
+        Rol actualizado = rolService.actualizar(id, nuevoRol);
+        return actualizado != null 
+            ? ResponseEntity.ok("Rol actualizado") 
+            : ResponseEntity.notFound().build();
+    }
 
 
 }
