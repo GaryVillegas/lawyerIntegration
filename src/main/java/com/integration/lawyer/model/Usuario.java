@@ -35,6 +35,7 @@ public class Usuario {
     public String getContrasena() {
         return this.contrasena = contrasena;
     }
+
     public String getRol() {
         return rol;
     }

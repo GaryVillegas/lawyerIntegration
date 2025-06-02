@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
-    @GetMapping("/cliente")
+    @GetMapping("/cliente/{id}")
     public ResponseEntity<?> listarCliente(@PathVariable Integer id){
         Cliente cliente=clienteService.findById(id);
         if (cliente == null){
