@@ -1,7 +1,7 @@
-package com.integration.lawyer.Controller;
+package com.integration.lawyer.controller;
 
-import com.integration.lawyer.Model.Usuario;
-import com.integration.lawyer.Service.UsuarioService;
+import com.integration.lawyer.model.Usuario;
+import com.integration.lawyer.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

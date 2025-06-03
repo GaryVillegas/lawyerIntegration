@@ -1,7 +1,7 @@
-package com.integration.lawyer.Service;
+package com.integration.lawyer.service;
 
-import com.integration.lawyer.Model.Usuario;
-import com.integration.lawyer.Repository.UsuarioRepository;
+import com.integration.lawyer.model.Usuario;
+import com.integration.lawyer.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

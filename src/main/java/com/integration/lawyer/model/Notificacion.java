@@ -1,4 +1,4 @@
-package com.integration.lawyer.Model;
+package com.integration.lawyer.model;
 
 public class Notificacion {
 }

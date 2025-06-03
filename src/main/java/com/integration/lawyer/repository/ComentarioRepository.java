@@ -1,4 +1,8 @@
-package com.integration.lawyer.Repository;
+package com.integration.lawyer.repository;
 
-public interface ComentarioRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.integration.lawyer.model.Comentario;
+
+public interface ComentarioRepository extends JpaRepository<Comentario, Integer> {
 }

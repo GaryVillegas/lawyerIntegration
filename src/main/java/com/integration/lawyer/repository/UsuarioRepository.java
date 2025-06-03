@@ -1,6 +1,6 @@
-package com.integration.lawyer.Repository;
+package com.integration.lawyer.repository;
 
-import com.integration.lawyer.Model.Usuario;
+import com.integration.lawyer.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

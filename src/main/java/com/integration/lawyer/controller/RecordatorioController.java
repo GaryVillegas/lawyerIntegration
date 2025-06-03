@@ -1,4 +1,4 @@
-package com.integration.lawyer.Controller;
+package com.integration.lawyer.controller;
 
 public class RecordatorioController {
 }
