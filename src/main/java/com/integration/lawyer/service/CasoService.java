@@ -23,7 +23,25 @@ public class CasoService {
     public void delete(Integer id){
         casoRepository.deleteById(id);
     }
+
+    //crear caso
     public Caso save(Caso caso){
         return  casoRepository.save(caso);
+    }
+
+    //modificar o actualizar caso
+    public Caso update(Integer id ,Caso casoNuevo){
+        Caso casoExistente = casoRepository.findById(id).orElse(null);
+        if(casoExistente == null) {
+            return null; // Caso no encontrado
+        }
+
+        casoExistente.setDescripcion(casoNuevo.getDescripcion());
+        casoExistente.setEstado(casoNuevo.getEstado());
+        casoExistente.setTitulo(casoNuevo.getTitulo());
+        casoExistente.setUsuarioId(casoNuevo.getUsuarioId());
+        casoExistente.setFechaCreacion(casoNuevo.getFechaCreacion());
+        casoExistente.setFechaCierre(casoNuevo.getFechaCierre());
+        return casoRepository.save(casoExistente);
     }
 }
