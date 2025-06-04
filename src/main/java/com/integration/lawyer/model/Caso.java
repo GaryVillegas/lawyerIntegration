@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "caso")
@@ -25,8 +25,20 @@ public class Caso {
     private String estado;
 
     @Column(nullable = false)
-    private LocalDate fechaCreacion;
+    private String fechaCreacion;
 
-    @Column(nullable = false, length = 50, unique = true)
-    private LocalDate fechaCierre;
+    @Column(nullable = false, length = 50)
+    private String fechaCierre;
+
+    @Column(nullable = false, length = 255)
+    private String descripcion;
+
+    @Column(name = "usuario_id")
+    private Integer usuarioId;
+
+    @PrePersist
+    @PreUpdate
+    private void setFechaCreacion() {
+        this.fechaCreacion = LocalDateTime.now().toString();
+    }
 }
