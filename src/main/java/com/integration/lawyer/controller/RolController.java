@@ -12,10 +12,13 @@ public class RolController {
     @Autowired
     private RolService rolService;
 
-    @PostMapping("/rol/nuevo")
-    public ResponseEntity<?> guardarRol(@RequestBody Rol rol){
-        Rol rolGuardado = rolService.save(rol);
-        return ResponseEntity.status(201).body(rolGuardado);
+    @GetMapping("/rol/{id}")
+    public ResponseEntity<?> buscarRolId(@PathVariable Integer id){
+        Rol rol = rolService.findById(id);
+        if(rol == null){
+            return ResponseEntity.status(404).body("Rol no encontrado con ID: " + id);
+        }
+        return ResponseEntity.status(201).body(rol);
     }
 
     @GetMapping("/rol")
@@ -26,13 +29,19 @@ public class RolController {
         return ResponseEntity.status(200).body(rolService.findAll());
     }
 
-    @DeleteMapping("/rol/{id}")
+    @PostMapping("/rol/nuevo")
+    public ResponseEntity<?> guardarRol(@RequestBody Rol rol){
+        Rol rolGuardado = rolService.save(rol);
+        return ResponseEntity.status(201).body(rolGuardado);
+    }
+
+    @DeleteMapping("/rol/delete/{id}")
     public ResponseEntity<?> borrarRol(@PathVariable Integer id) {
         rolService.delete(id);
         return ResponseEntity.status(200).body("Rol eliminado");
     }
     
-    @PutMapping("/rol/{id}")
+    @PutMapping("/rol/edit/{id}")
     public ResponseEntity<String> actualizarRol(
     @PathVariable Integer id, 
     @RequestBody Rol nuevoRol) {
