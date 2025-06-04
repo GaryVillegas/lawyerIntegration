@@ -22,6 +22,9 @@ public class Agenda {
     @Column(nullable = false, length = 50)
     private String abogadoSeleccionado;
 
+    @Column(nullable = false)
+    private Integer idUsuario;
+
     @Column(nullable = false, length = 50)
     private String horaReunion;
 }
