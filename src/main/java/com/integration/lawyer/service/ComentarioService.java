@@ -34,4 +34,20 @@ public class ComentarioService {
     public Comentario Save(Comentario comentario){
         return comentarioRepository.save(comentario);
     }
+
+    //borrar comentario
+    public void delete(Integer id){
+        comentarioRepository.deleteById(id);
+    }
+
+    //modificar comentario
+    public Comentario actualizar(Integer id, Comentario comentarioNuevo){
+        Comentario comentarioExistente = comentarioRepository.findById(id).orElse(null);
+        if(comentarioExistente == null){
+            return null;
+        }
+
+        comentarioExistente.setComentario(comentarioNuevo.getComentario());
+        return comentarioRepository.save(comentarioExistente);
+    }
 }
