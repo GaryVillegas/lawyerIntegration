@@ -12,7 +12,7 @@ public class RolController {
     @Autowired
     private RolService rolService;
 
-    @PostMapping("/rol")
+    @PostMapping("/rol/nuevo")
     public ResponseEntity<?> guardarRol(@RequestBody Rol rol){
         Rol rolGuardado = rolService.save(rol);
         return ResponseEntity.status(201).body(rolGuardado);
@@ -20,6 +20,9 @@ public class RolController {
 
     @GetMapping("/rol")
     public ResponseEntity<?>listarRol(){
+        if(rolService.findAll().isEmpty()){
+            return ResponseEntity.status(400).body("No se encontraron roles: " + rolService.findAll());
+        }
         return ResponseEntity.status(200).body(rolService.findAll());
     }
 

@@ -20,6 +20,9 @@ public class UsuarioController {
     }
     @GetMapping("/usuario")
     public ResponseEntity<?> listarUsuarios() {
+        if(usuarioService.findAll().isEmpty()){
+            return ResponseEntity.status(404).body("No se encontraron usuarios");
+        }
         return ResponseEntity.status(200).body(usuarioService.findAll());
     }
     @GetMapping("/usuario/{id}")
@@ -35,7 +38,7 @@ public class UsuarioController {
         usuarioService.delete(id);
         return ResponseEntity.status(200).body("Usuario eliminado");
     }
-    @PostMapping("/usuario")
+    @PostMapping("/usuario/nuevo")
     public ResponseEntity<?> guardarUsuario(@RequestBody Usuario usuario){
         Usuario usuarioGuardado = usuarioService.save(usuario);
         return ResponseEntity.status(201).body(usuarioGuardado);

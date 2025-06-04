@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.integration.lawyer.model.Comentario;
+import com.integration.lawyer.model.Usuario;
 import com.integration.lawyer.service.ComentarioService;
+import com.integration.lawyer.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -19,16 +21,31 @@ public class ComentarioController {
     @Autowired
     private ComentarioService comentarioService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     //Crear un comentario
     @PostMapping("/comentario/nuevo")
     public ResponseEntity<?> crearComentario(@RequestBody Comentario comentario){
-        Comentario comentarioGuardado = comentarioService.Save(comentario);
-        if (comentarioGuardado == null) {
-            return ResponseEntity.status(400).body("Error al guardar el comentario");
-        } else if(comentarioGuardado.getComentario() == null || comentarioGuardado.getComentario().isEmpty()){
-            return ResponseEntity.status(400).body("El comentario no puede estar vacío");
+        //validar que el comentario no sea nulo
+        if(comentario.getComentario() == null){
+            return ResponseEntity.status(400).body("El comentario no puede estar vacio");
         }
-        return ResponseEntity.status(201).body("comentario guardado con exito: " + comentarioGuardado.getId());
+        //validar que el usuario exista
+        Usuario usuario = usuarioService.findById(comentario.getIdUsuario()); //importamos el servicio para validar datos del usuario
+        if(usuario == null){
+            return ResponseEntity.status(404).body("Usuario no encontrado: " + comentario.getNombre());
+        }
+        //validar que el nombre del usuario exista
+        // if(comentario.getNombre() != usuario.getNombre()){
+        //     return ResponseEntity.status(400).body("No se encontro el nombre del usuario: " + comentario.getNombre());
+        // }
+        try{
+            Comentario comentarioGuardado = comentarioService.Save(comentario);
+            return ResponseEntity.status(201).body("comentario guardado con exito: " + comentarioGuardado);
+        } catch (Exception e){
+            return ResponseEntity.status(500).body("Error al guardar el comentario: " + e.getMessage());
+        }
     }
 
     //Buscar comentario por id
