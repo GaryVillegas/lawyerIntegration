@@ -25,7 +25,7 @@ public class Usuario {
     private String correo;
 
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, length = 50)
     private String rol;
 
     public String getCorreo(String correo) {
