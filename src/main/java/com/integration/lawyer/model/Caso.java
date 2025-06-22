@@ -36,6 +36,9 @@ public class Caso {
     @Column(name = "usuario_id")
     private Integer usuarioId;
 
+    //Se va a tener que agregar un columna con foreign key hacia usuarios que tengan de rol
+    //cliente para que les pueda llegar notificaciones sobre el caso.
+
     @PrePersist
     @PreUpdate
     private void setFechaCreacion() {

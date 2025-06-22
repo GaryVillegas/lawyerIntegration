@@ -29,6 +29,8 @@ public class Comentario {
     @Column(nullable = false, length = 50)
     private String updateAt;
 
+    //se debe de agregar foreign key para poder conectar los comentarios a un caso
+
     // Correct JPA callback method
     @PrePersist
     @PreUpdate
