@@ -27,6 +27,8 @@ public class Documento {
     @Column(nullable = false)
     private Long tamaño;
 
+    //Se debe crear foreign key para poder conectarlo a un caso.
+
     // Si quieres relacionarlo con un usuario específico
     @Column(name = "usuario_id")
     private Integer usuarioId;
