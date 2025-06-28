@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.List;
 
 @Entity
 @Table(name = "rol")
@@ -18,6 +22,9 @@ public class Rol {
     @Column(nullable = false, length = 50)
     private String nombreRol;
 
-
+    @OneToMany(mappedBy = "rol")
+    @JsonManagedReference
+    private List<Usuario> usuarios;
 
 }
+
