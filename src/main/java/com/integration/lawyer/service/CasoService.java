@@ -15,33 +15,38 @@ public class CasoService {
     private CasoRepository casoRepository;
 
     public List<Caso> findAll() {
-        return casoRepository.findAll();}
-
-    public Caso findById(Integer id){
-        return casoRepository.findById(id).orElse(null);//retornar completo
+        return casoRepository.findAll();
     }
-    public void delete(Integer id){
+
+    public Caso findById(Integer id) {
+        return casoRepository.findById(id).orElse(null); // Retorna caso completo
+    }
+
+    public void delete(Integer id) {
         casoRepository.deleteById(id);
     }
 
-    //crear caso
-    public Caso save(Caso caso){
-        return  casoRepository.save(caso);
+    // Crear nuevo caso
+    public Caso save(Caso caso) {
+        return casoRepository.save(caso);
     }
 
-    //modificar o actualizar caso
-    public Caso update(Integer id ,Caso casoNuevo){
+    // Modificar o actualizar caso
+    public Caso update(Integer id, Caso casoNuevo) {
         Caso casoExistente = casoRepository.findById(id).orElse(null);
-        if(casoExistente == null) {
+        if (casoExistente == null) {
             return null; // Caso no encontrado
         }
 
         casoExistente.setDescripcion(casoNuevo.getDescripcion());
         casoExistente.setEstado(casoNuevo.getEstado());
         casoExistente.setTitulo(casoNuevo.getTitulo());
-        casoExistente.setUsuarioId(casoNuevo.getUsuarioId());
         casoExistente.setFechaCreacion(casoNuevo.getFechaCreacion());
         casoExistente.setFechaCierre(casoNuevo.getFechaCierre());
+
+        // ✅ Aquí usamos el objeto usuario
+        casoExistente.setUsuario(casoNuevo.getUsuario());
+
         return casoRepository.save(casoExistente);
     }
 }

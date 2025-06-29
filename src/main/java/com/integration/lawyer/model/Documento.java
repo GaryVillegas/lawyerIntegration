@@ -1,4 +1,6 @@
 package com.integration.lawyer.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,9 +29,15 @@ public class Documento {
     @Column(nullable = false)
     private Long tamaño;
 
-    //Se debe crear foreign key para poder conectarlo a un caso.
+    // Relación con Caso (muchos documentos pueden pertenecer a un caso)
+    @ManyToOne
+    @JoinColumn(name = "caso_id", nullable = false)
+    @JsonBackReference
+    private Caso caso;
 
-    // Si quieres relacionarlo con un usuario específico
-    @Column(name = "usuario_id")
-    private Integer usuarioId;
+
+    // Relación opcional con Usuario si lo necesitas
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

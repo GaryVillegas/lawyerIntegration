@@ -1,4 +1,7 @@
 package com.integration.lawyer.model;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,11 +36,16 @@ public class Caso {
     @Column(nullable = false, length = 255)
     private String descripcion;
 
-    @Column(name = "usuario_id")
-    private Integer usuarioId;
+    // 🔗 Relación con Usuario
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonBackReference
+    private Usuario usuario;
 
-    //Se va a tener que agregar un columna con foreign key hacia usuarios que tengan de rol
-    //cliente para que les pueda llegar notificaciones sobre el caso.
+
+    @OneToMany(mappedBy = "caso")
+    @JsonManagedReference
+    private List<Documento> documentos;
 
     @PrePersist
     @PreUpdate

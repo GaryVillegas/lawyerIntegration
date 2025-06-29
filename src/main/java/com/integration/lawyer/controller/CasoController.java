@@ -43,17 +43,27 @@ public class CasoController {
 
     //Crear un caso
     @PostMapping("/caso/nuevo")
-    public ResponseEntity<?> guardarCaso(@RequestBody Caso caso){
+    public ResponseEntity<?> guardarCaso(@RequestBody Caso caso) {
+        // Validar si el objeto Caso o su usuario son nulos
+        if (caso == null || caso.getUsuario() == null || caso.getUsuario().getId() == null) {
+            return ResponseEntity.status(400).body("El caso o el usuario asociado no es válido");
+        }
+
+        // Buscar el usuario en la base de datos por su ID
+        Usuario usuario = usuarioService.findById(caso.getUsuario().getId());
+        if (usuario == null) {
+            return ResponseEntity.status(404).body("Usuario no encontrado con ID: " + caso.getUsuario().getId());
+        }
+
+        // Asociar el usuario existente al caso
+        caso.setUsuario(usuario);
+
+        // Guardar el caso
         Caso casoGuardado = casoService.save(caso);
-        if(caso == null){
-            return ResponseEntity.status(400).body("El caso no puede estar vacio");
-        }
-        Usuario usuario = usuarioService.findById(caso.getUsuarioId());
-        if(usuario == null){
-            return ResponseEntity.status(400).body("Usuario no encontrado: "+ caso.getUsuarioId());
-        }
         return ResponseEntity.status(201).body(casoGuardado);
     }
+
+
 
     //Actualizar un caso
     @PutMapping("/caso/editar/{id}")

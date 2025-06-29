@@ -1,4 +1,7 @@
 package com.integration.lawyer.model;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,23 +27,16 @@ public class Usuario {
     @Column(nullable = false, length = 50, unique = true)
     private String correo;
 
+    @ManyToOne
+    @JoinColumn(name = "rol_id", nullable = false)
+    @JsonBackReference
+    private Rol rol;
 
-    @Column(nullable = false, length = 50)
-    private String rol;
 
-    public String getCorreo(String correo) {
-        return this.correo = correo;
-    }
+    @OneToMany(mappedBy = "usuario")
+    @JsonManagedReference
+    private List<Caso> casos;
 
-    public String getContrasena(String contrasena) {
-        return this.contrasena = contrasena;
-    }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
 }
+

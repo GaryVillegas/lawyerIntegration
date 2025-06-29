@@ -1,20 +1,26 @@
 package com.integration.lawyer.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="agenda")
+@Table(name = "agenda")
 @Data
 @NoArgsConstructor
 public class Agenda {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 50)
-    private String areaAsesoramiento;
+    // Nueva relación con AreaAsesoramiento
+    @ManyToOne
+    @JoinColumn(name = "area_id", nullable = false)
+    @JsonBackReference
+    private AreaAsesoramiento areaAsesoramiento;
 
     @Column(nullable = false, length = 50)
     private String fechaReunion;
