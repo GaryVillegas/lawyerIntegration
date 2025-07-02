@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.integration.lawyer.model.Agenda;
+import com.integration.lawyer.model.Notificacion;
 import com.integration.lawyer.model.Usuario;
 import com.integration.lawyer.service.AgendaService;
+import com.integration.lawyer.service.NotificacionService;
 import com.integration.lawyer.service.UsuarioService;
 
 @RestController
@@ -18,6 +20,9 @@ public class AgendaController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private NotificacionService notificacionService;
 
     @GetMapping("/agenda")
     public ResponseEntity<?> listarAgenda(){
@@ -50,11 +55,18 @@ public class AgendaController {
         }
         //Validar que el usuario tenga permisos para agendar citas
         // Asumiendo que el rol del usuario es un campo en la entidad Usuario
-        if(usuario.getRol().equals("cliente")){
+        if(usuario.getRol().getNombreRol().equals("cliente")){
             return ResponseEntity.status(403).body("El usuario no tiene permisos para agendar citas");
         }
 
+        Usuario abogado = usuarioService.findById(agenda.getIdUsuario());
+        String nombreAbogado = (abogado != null) ? abogado.getNombre() : "Desconocido";
+
         Agenda agendaGuardada = agendaService.save(agenda);
+        Notificacion notificacion = new Notificacion();
+        notificacion.setMensaje("Tienes una nueva cita @" + nombreAbogado);
+        notificacion.setAgenda(agendaGuardada);
+        notificacionService.crear(notificacion);
         return ResponseEntity.status(200).body(agendaGuardada);
     }
 

@@ -1,4 +1,8 @@
 package com.integration.lawyer.repository;
 
-public interface NotificacionRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.integration.lawyer.model.Notificacion;
+
+public interface NotificacionRepository extends JpaRepository<Notificacion, Integer>{
 }
