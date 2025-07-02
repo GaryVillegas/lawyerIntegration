@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.integration.lawyer.model.Comentario;
+import com.integration.lawyer.model.Notificacion;
 import com.integration.lawyer.model.Usuario;
 import com.integration.lawyer.service.ComentarioService;
+import com.integration.lawyer.service.NotificacionService;
 import com.integration.lawyer.service.UsuarioService;
 
 @RestController
@@ -18,6 +20,9 @@ public class ComentarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private NotificacionService notificacionService;
 
     //Crear un comentario
     @PostMapping("/comentario/nuevo")
@@ -31,13 +36,17 @@ public class ComentarioController {
         if(usuario == null){
             return ResponseEntity.status(404).body("Usuario no encontrado: " + comentario.getNombre());
         }
-        //validar que el nombre del usuario exista
-        // if(comentario.getNombre() != usuario.getNombre()){
-        //     return ResponseEntity.status(400).body("No se encontro el nombre del usuario: " + comentario.getNombre());
-        // }
+
         try{
             Comentario comentarioGuardado = comentarioService.Save(comentario);
-            return ResponseEntity.status(201).body("comentario guardado con exito: " + comentarioGuardado);
+
+            Notificacion notificacion = new Notificacion();
+            notificacion.setMensaje("Nuevo comentario agregado por " + usuario.getNombre());
+            notificacion.setComentario(comentarioGuardado);
+
+            notificacionService.crear(notificacion);
+
+            return ResponseEntity.status(201).body(comentarioGuardado);
         } catch (Exception e){
             return ResponseEntity.status(500).body("Error al guardar el comentario: " + e.getMessage());
         }
