@@ -72,6 +72,7 @@ public class AgendaController {
 
     @DeleteMapping("/agendaDelete/{id}")
     public ResponseEntity<?> borrar(@PathVariable Integer id){
+        notificacionService.eliminarPorAgendaId(id);
         agendaService.delete(id);
         return ResponseEntity.status(201).body("Cita eliminada con éxito");
     }

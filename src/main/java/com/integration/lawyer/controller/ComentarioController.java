@@ -77,6 +77,7 @@ public class ComentarioController {
         if(comentarioService.findById(id) == null){
             return ResponseEntity.status(404).body("Comentario no encontrado con el id: " + id);
         }
+        notificacionService.eliminarPorComentarioId(id);
         comentarioService.delete(id);
         return ResponseEntity.status(201).body("Comentario eliminado con exito.");
     }

@@ -29,4 +29,12 @@ public class NotificacionService {
     public void delete(Integer id){
         notificacionRepository.deleteById(id);
     }
+
+    public void eliminarPorAgendaId(Integer agendaId) {
+    notificacionRepository.deleteByAgendaId(agendaId);
+    }
+
+    public void eliminarPorComentarioId(Integer comentarioId) {
+    notificacionRepository.deleteByComentarioId(comentarioId);
+    }
 }

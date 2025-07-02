@@ -37,6 +37,9 @@ public class RolController {
 
     @DeleteMapping("/rol/delete/{id}")
     public ResponseEntity<?> borrarRol(@PathVariable Integer id) {
+        if (rolService.tieneUsuariosAsociados(id)) {
+        return ResponseEntity.status(400).body("No se puede eliminar el rol porque hay usuarios asociados.");
+        }
         rolService.delete(id);
         return ResponseEntity.status(200).body("Rol eliminado");
     }
